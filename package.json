@@ -37,7 +37,9 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "karma start test/karma.conf.js"
+    "test": "gulp test",
+    "start": "gulp serve",
+    "postinstall": "./node_modules/bower/bin/bower install --config.interactive=false && gulp build"
   },
   "dependencies": {
     "angular-animate": "^1.5.8",
