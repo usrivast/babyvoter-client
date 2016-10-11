@@ -38,8 +38,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "start": "gulp serve",
-    "postinstall": "node_modules/bower/bin/bower install --config.interactive=false && gulp build"
+    "start": "node node_modules/gulp/bin/gulp serve"
   },
   "dependencies": {
     "angular-animate": "^1.5.8",
