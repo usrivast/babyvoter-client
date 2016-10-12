@@ -113,6 +113,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('serve', function (cb) {
+  console.log(process.cwd());
   runSequence('clean:tmp',
     ['lint:scripts'],
     ['copyBower'],
