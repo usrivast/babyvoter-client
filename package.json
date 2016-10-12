@@ -37,8 +37,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "gulp test",
-    "start": "node node_modules/gulp/bin/gulp serve"
+    "test": "gulp test"
   },
   "dependencies": {
     "angular-animate": "^1.5.8",
