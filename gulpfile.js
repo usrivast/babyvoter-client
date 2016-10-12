@@ -78,7 +78,7 @@ gulp.task('start:server', function() {
     root: [yeoman.app, '.tmp'],
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
-    port: process.env.port || 9000
+    port: process.env.PORT || 9000
   });
 });
 
