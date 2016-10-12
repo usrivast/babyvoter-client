@@ -121,6 +121,16 @@ angular
   })
   .controller('NavCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main', 'authService',
     function ($rootScope, $scope, $location, $localStorage, Main, authService) {
+      $scope.isAuthenticated = Main.isAuthenticated();
+
+      $scope.$on('event:auth-loginConfirmed',  function () {
+        $scope.isAuthenticated = Main.isAuthenticated();
+      });
+
+      if(!Main.isAuthenticated()){
+        $rootScope.$broadcast('event:auth-loginRequired', Main.isAuthenticated())
+      }
+
       var viewLocation = {};
       $scope.isActive = function () {
         return viewLocation === $location.path();
@@ -173,7 +183,6 @@ angular
         })
       };
 
-      $scope.isAuthenticated = Main.isAuthenticated();
 
       $scope.logout = function () {
         Main.logout(function () {

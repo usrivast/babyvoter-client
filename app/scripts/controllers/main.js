@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($location, $localStorage, authService) {
+  .controller('MainCtrl', function ($location, $localStorage, authService, $scope,  $http) {
 
     var searchParam = $location.search();
     if(JSON.stringify(searchParam) !== JSON.stringify({})){
@@ -16,7 +16,11 @@ angular.module('clientApp')
       $localStorage.token = searchParam.sid;
       authService.loginConfirmed();
       $location.search({});
-      window.location.reload();
+      // window.location.reload();
+    }
+
+    $scope.navfb = function(){
+      console.log("navigate to facebook");
     }
 
 
