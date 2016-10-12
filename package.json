@@ -38,13 +38,11 @@
   },
   "scripts": {
     "test": "gulp test",
-    "postinstall":"bower install"
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "dependencies": {
     "angular-animate": "^1.5.8",
-    "express": "^4.14.0",
-    "gzippo": "^0.2.0",
-    "morgan": "^1.7.0",
+    "bower": "^1.7.9",
     "ui-select": "^0.19.4"
   }
 }
