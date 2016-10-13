@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('clientApp')
-  .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main', 'authService',
-    function($rootScope, $scope, $location, $localStorage, Main, authService) {
+  .controller('HomeCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main',
+    function($rootScope, $scope, $location, $localStorage, Main) {
 
   }])
   .controller('MeCtrl', ['$rootScope', '$scope', '$location', 'Main', function($rootScope, $scope, $location, Main) {

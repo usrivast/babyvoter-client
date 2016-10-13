@@ -14,7 +14,6 @@ angular
     'ngStorage',
     'restangular',
     'ui.bootstrap',
-    'http-auth-interceptor',
     'ngSanitize',
     'ui.select2',
     'ngAnimate',
@@ -103,12 +102,12 @@ angular
             }
             return config;
           },
-          // 'responseError': function (response) {
-          //   if (response.status === 401 || response.status === 403) {
-          //     $location.path('/signin');
-          //   }
-          //   return $q.reject(response);
-          // }
+          'responseError': function (response) {
+            if (response.status === 401 || response.status === 403) {
+              $location.path('/signin');
+            }
+            return $q.reject(response);
+          }
         };
       }]);
     }])
@@ -119,17 +118,9 @@ angular
     $httpProvider.defaults.headers.put = {};
     $httpProvider.defaults.headers.patch = {};
   })
-  .controller('NavCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main', 'authService',
-    function ($rootScope, $scope, $location, $localStorage, Main, authService) {
+  .controller('NavCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main',
+    function ($rootScope, $scope, $location, $localStorage, Main) {
       $scope.isAuthenticated = Main.isAuthenticated();
-
-      $scope.$on('event:auth-loginConfirmed',  function () {
-        $scope.isAuthenticated = Main.isAuthenticated();
-      });
-
-      if(!Main.isAuthenticated()){
-        $rootScope.$broadcast('event:auth-loginRequired', Main.isAuthenticated())
-      }
 
       var viewLocation = {};
       $scope.isActive = function () {
@@ -148,7 +139,6 @@ angular
             alert(res.data)
           } else {
             $localStorage.token = res.data.token;
-            authService.loginConfirmed();
             window.location.reload();
             // window.location = "/";
           }
@@ -190,35 +180,40 @@ angular
         }, function () {
           alert("Failed to logout!");
         });
-        authService.loginCancelled();
       };
       $scope.token = $localStorage.token;
 
     }])
-  .directive('authDemoApplication', function () {
-    return {
-      restrict: 'C',
-      link: function (scope, elem, attrs) {
-        //once Angular is started, remove class:
-        elem.removeClass('waiting-for-angular');
+  .run(function ($rootScope, $location, Main) {
 
-        var login = elem.find('#login-holder');
-        var main = elem.find('#content');
+    // enumerate routes that don't need authentication
+    var routesThatDontRequireAuth = ['/signin', '/signup', '/about', '/'];
 
-        login.hide();
-
-        scope.$on('event:auth-loginRequired', function () {
-          login.slideDown('slow', function () {
-            main.hide();
-          });
-        });
-        scope.$on('event:auth-loginConfirmed', function () {
-          // main.show();
-          login.slideUp('slow', function() {
-            main.show();
-          });
-        });
+    // check if current location matches route
+    var routeClean = function (route) {
+      if(route === '') {
+        route = '/'
       }
-    }
+
+      for( var i = 0; i < routesThatDontRequireAuth.length; i++){
+        if(route.trim() === routesThatDontRequireAuth[i]){
+          return true;
+        }
+      }
+
+      return false;
+      // return _.find(routesThatDontRequireAuth,
+      //   function (noAuthRoute) {
+      //     return _.str.startsWith(route, noAuthRoute);
+      //   });
+    };
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      // if route requires auth and user is not logged in
+      if (!routeClean($location.path()) && !Main.isAuthenticated()) {
+        // redirect back to login
+        $location.path('/signin');
+      }
+    });
   });
 
