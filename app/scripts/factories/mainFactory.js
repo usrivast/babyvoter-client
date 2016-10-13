@@ -2,7 +2,7 @@
 
 angular.module('clientApp')
   .factory('Main', ['$http', '$localStorage', 'authService', function($http, $localStorage, authService){
-    var baseUrl = "https://arcane-peak-48225.herokuapp.com/";
+    var baseUrl = "https://arcane-peak-48225.herokuapp.com";
     function changeUser(user) {
       angular.extend(currentUser, user);
     }
