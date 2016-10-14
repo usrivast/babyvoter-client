@@ -22,7 +22,7 @@ angular
   ])
   .constant("AppConstants", {
     // "api": "http://localhost:3000"
-    "api": "https://arcane-peak-48225.herokuapp.com/api/"
+    "api": "https://arcane-peak-48225.herokuapp.com"
   })
   .config(['$routeProvider', 'RestangularProvider', '$httpProvider', 'AppConstants',
     function ($routeProvider, RestangularProvider, $httpProvider, AppConstants) {
