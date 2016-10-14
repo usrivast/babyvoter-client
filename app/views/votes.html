@@ -8,13 +8,14 @@
   <th>Operations</th>
   </thead>
   <tbody>
-  <tr ng-repeat="vote in votes">
-    <td>{{ vote.user }}</td>
-    <td>{{ vote.gender[0] }}</td>
-    <td>{{ vote.month }}</td>
-    <td>{{ vote.day }}</td>
-    <td>{{ vote.created | date:'medium'}}</td>
-    <td>
+  <tr ng-repeat="vote in votes" style="height: 67px;">
+    <td><img ng-src="{{vote.user.facebook.picture.data.url}}" class="img-circle"> {{ vote.user.displayName }} </td>
+    <td style="vertical-align: middle;">{{ vote.gender }}</td>
+    <td style="vertical-align: middle;">{{ vote.month }}</td>
+    <td style="vertical-align: middle;">{{ vote.day }}</td>
+    <td style="vertical-align: middle;">{{ vote.created | date:'medium'}}</td>
+    <td style="vertical-align: middle;">
+    <td style="vertical-align: middle;">
       <div class="button-group">
         <a ng-href="/#/vote/{{ vote._id }}" class="btn btn-default">
           <span class="glyphicon glyphicon-edit"></span>

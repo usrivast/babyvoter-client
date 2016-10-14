@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('clientApp')
-  .factory('Main', ['$http', '$localStorage', function($http, $localStorage){
-    var baseUrl = "https://arcane-peak-48225.herokuapp.com";
+  .factory('Main', ['$http', '$localStorage','AppConstants', function($http, $localStorage, AppConstants){
+    var baseUrl = AppConstants.api;
     function changeUser(user) {
       angular.extend(currentUser, user);
     }
