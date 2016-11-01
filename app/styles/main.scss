@@ -197,4 +197,37 @@ body {
   border-radius: 50%;
 }
 
+/* Pattern styles */
+/* Pattern styles */
+.data {
+  display: flex;
+}
+.left-half {
+  background-color: #fff0fe;
+  flex: 1;
+  padding: 1rem;
+}
+
+.right-half {
+  background-color: aliceblue;
+  flex: 1;
+  padding: 1rem;
+}
+
+.center-data {
+  width:10px;
+}
+
+.content-tile {
+  background-color: white;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  padding:10px;
+
+}
+
+
+
+
 

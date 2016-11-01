@@ -18,5 +18,6 @@ angular.module('clientApp')
     if($scope.isAuthenticated) {
       $scope.viewVote = true;
       $scope.vote = VoteFactory.one($routeParams.id).get().$object;
+      var vote = $scope.vote;
     }
   });

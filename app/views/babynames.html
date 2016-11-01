@@ -1,0 +1,50 @@
+<div id="babyName" style="height: 500px;">
+  <section class="data">
+    <div class="left-half">
+      <article>
+        <div>
+          <div style="float: right;">
+            <h5>Total: {{girlNames.length}}</h5></div>
+          <h4>Girl Names</h4>
+        </div>
+
+        <div style="padding: 10px;" ng-repeat="vote in girlNames | orderBy: vote.upvotes">
+          <div class="content-tile">
+            <div style="float: left">
+              <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>
+              {{vote.upvotes}}
+            </div>
+            <div style="float: right">
+              <p>Suggestions</p>
+            </div>
+            <h4> {{vote.name}} </h4>
+          </div>
+        </div>
+
+      </article>
+    </div>
+    <div class="center-data"></div>
+    <div class="right-half">
+      <article>
+        <div>
+          <div style="float: right;">
+            <h5>Total: {{boyNames.length}}</h5></div>
+          <h4>Girl Names</h4>
+        </div>
+
+        <div style="padding: 10px;" ng-repeat="vote in boyNames | orderBy: vote.upvotes">
+          <div class="content-tile">
+            <div style="float: left">
+              <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>
+              {{vote.upvotes}}
+            </div>
+            <div style="float: right">
+              <p>Suggestions</p>
+            </div>
+            <h4> {{vote.name}} </h4>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

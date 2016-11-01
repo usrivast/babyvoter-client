@@ -42,6 +42,10 @@ angular
           templateUrl: 'views/contact.html',
           controller: 'ContactCtrl',
         })
+        .when('/babynames', {
+          templateUrl: 'views/babynames.html',
+          controller: 'BabyNameCtrl',
+        })
         .when('/votes', {
           templateUrl: 'views/votes.html',
           controller: 'VotesCtrl',
