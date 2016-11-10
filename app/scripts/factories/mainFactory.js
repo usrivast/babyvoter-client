@@ -48,10 +48,16 @@ angular.module('clientApp')
       me: function(success, error) {
         $http.get(baseUrl + '/api/me').success(success).error(error)
       },
+      create: function(data, success, error) {
+       $http.post(baseUrl + '/api/users', data).success(success).error(error)
+      },
       logout: function(success) {
         changeUser({});
         delete $localStorage.token;
         success();
+      },
+      autheticateUser: function() {
+        $localStorage.token = 'true';
       },
       isAuthenticated: function(){
         if($localStorage.token){
