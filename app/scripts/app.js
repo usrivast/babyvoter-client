@@ -76,7 +76,8 @@ angular
         })
         .when('/signup', {
           templateUrl: 'views/signup.html',
-          controller: 'HomeCtrl',
+          controller: 'RegisterCtlr',
+          controllerAs: 'vm',
         })
         .when('/me', {
           templateUrl: 'views/me.html',

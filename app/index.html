@@ -50,7 +50,7 @@
           <li ng-class="{ active: isActive('#/users')}"><a ng-href="#/users">Users</a></li>
         </ul>
 
-        <ul class="nav nav-pills pull-right" ng-hide="isAuthenticated">
+        <ul class="nav nav-pills pull-right" ng-hide="isAuthenticated" ng-cloak>
           <!--<li ng-class="{ active: isActive('#/signup')}">-->
             <!--<a ng-href="#/create/user">Sign Up</a>-->
           <!--</li>-->
@@ -60,7 +60,7 @@
           </li>
         </ul>
 
-        <ul class="nav nav-pills pull-right" ng-show="isAuthenticated">
+        <ul class="nav nav-pills pull-right" ng-show="isAuthenticated" ng-cloak>
           <li ng-class="{ active: isActive('#/signup')}">
             <a ng-click="logout()"> Sign Out </a>
           </li>
@@ -164,6 +164,7 @@
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/about.js"></script>
 <script src="scripts/controllers/votes.js"></script>
+<script src="scripts/controllers/register.js"></script>
 <script src="scripts/controllers/contact.js"></script>
 <script src="scripts/controllers/vote-add.js"></script>
 <script src="scripts/controllers/vote-view.js"></script>
