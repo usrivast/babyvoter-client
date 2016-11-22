@@ -8,46 +8,44 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('VoteAddCtrl', function ($rootScope, $scope, VoteFactory, $location, Main, $timeout, $uibModal, $log, $document) {
+  .controller('VoteAddCtrl', function ($rootScope, $scope, VoteFactory, UserFactory, $location, Main, $timeout, $uibModal, $log, $document) {
     var vm = this;
     var currentUser = {};
     var vote = $scope.vote = {};
     vote.day = 15;
     vote.babyName = [];
 
-    $scope.$on('event:auth-loginConfirmed',  Main.isAuthenticated());
+    $scope.$on('event:auth-loginConfirmed', Main.isAuthenticated());
 
-    if(!Main.isAuthenticated()){
+    if (!Main.isAuthenticated()) {
       $rootScope.$broadcast('event:auth-loginRequired', Main.isAuthenticated())
     }
-
-    Main.me(function (res) {
-      $scope.currentUser = res.data.displayName;
-      $scope.vote.user = res.data.displayName;
-    }, function (error) {
-      console.log('Error: '+error)
-    });
 
     $scope.isAuthenticated = Main.isAuthenticated();
 
     var names = $scope.names = [];
 
-    $scope.saveVote = function() {
+    $scope.saveVote = function () {
+      Main.me(function (res) {
+        $scope.currentUser = res.data.firstName + ' ' + res.data.lastName;
+        vote.user = res.data._id;
+        // $scope.vote.user = res.data.displayName;
+        vote.day = $scope.slider_toggle.value;
+        VoteFactory.post($scope.vote).then(function () {
+          $location.path('/votes');
+        });
+      }, function (error) {
+        console.log('Error: ' + error)
+      });
       // if(names.length > 0) {
       //   names.forEach(function(each) {
       //     vote.babyName.push(each.text);
       //   });
       // }
 
-      var user = Main.me(function(res) {
-        vote.user = res.data._id;
+      // var user = Main.me(function(res) {
+      //   vote.user = res.data._id;
 
-        vote.day = $scope.slider_toggle.value;
-        VoteFactory.post($scope.vote).then(function() {
-          $location.path('/votes');
-        });
-
-      })
 
     };
 
@@ -57,7 +55,7 @@ angular.module('clientApp')
 
     $scope.setGender = setGender;
 
-    function setGender (gender) {
+    function setGender(gender) {
       $scope.vote.gender = gender;
     }
 
@@ -71,7 +69,7 @@ angular.module('clientApp')
     var noDays = 31;
     $scope.days = (function () {
       var list = [];
-      for(var i =1; i<=noDays; i++){
+      for (var i = 1; i <= noDays; i++) {
         list.push(i);
       }
       return list;
@@ -94,8 +92,8 @@ angular.module('clientApp')
     var currIndex = 0;
 
     $scope.setMonth = function (index) {
-      console.log('index === '+index);
-      if(index) {
+      console.log('index === ' + index);
+      if (index) {
         $scope.active = index;
         $scope.myInterval = 0;
         $scope.$broadcast('rzSliderForceRender');
@@ -113,7 +111,7 @@ angular.module('clientApp')
     //   id: 2
     // }];
 
-    $scope.addSlide = function() {
+    $scope.addSlide = function () {
       // var newWidth = 600 + slides.length + 1;
       slides.push({
         image: "/images/november.png",
@@ -157,7 +155,7 @@ angular.module('clientApp')
 
 
       modalInstance.result.then(function (name) {
-        if(name) {
+        if (name) {
           vote.babyName.push(name);
         }
       }, function () {

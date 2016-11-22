@@ -8,7 +8,7 @@
           <h4>Girl Names</h4>
         </div>
 
-        <div style="padding: 10px;" ng-repeat="vote in girlNames | orderBy: vote.upvotes">
+        <div style="padding: 10px;" ng-repeat="vote in girlNames | orderBy: '-upvotes'">
           <div class="content-tile">
             <div style="float: left">
               <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>
@@ -32,7 +32,7 @@
           <h4>Girl Names</h4>
         </div>
 
-        <div style="padding: 10px;" ng-repeat="vote in boyNames | orderBy: vote.upvotes">
+        <div style="padding: 10px;" ng-repeat="vote in boyNames | orderBy: '-upvotes'">
           <div class="content-tile">
             <div style="float: left">
               <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>

@@ -9,7 +9,7 @@
   </thead>
   <tbody>
   <tr ng-repeat="vote in votes" style="height: 67px;">
-    <td><img ng-src="{{vote.user.facebook.picture.data.url}}" class="img-circle"> {{ vote.user.displayName }} </td>
+    <td><img ng-src="{{vote.user.facebook.picture.data.url}}" class="img-circle" style="height: 50px; width:50px;"> {{ vote.user.displayName }} </td>
     <td style="vertical-align: middle;">{{ vote.gender }}</td>
     <td style="vertical-align: middle;">{{ vote.month }}</td>
     <td style="vertical-align: middle;">{{ vote.day }}</td>

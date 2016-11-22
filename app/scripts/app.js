@@ -68,11 +68,12 @@ angular
         })
         .when('/home', {
           templateUrl: 'views/home.html',
-          controller: 'HomeCtrl',
+          controller: 'HomeCtrl'
         })
         .when('/signin', {
           templateUrl: 'views/signin.html',
-          controller: 'HomeCtrl',
+          controller: 'SignInCtrl',
+          controllerAs: 'SignInCtrl'
         })
         .when('/signup', {
           templateUrl: 'views/signup.html',
@@ -106,7 +107,7 @@ angular
             config.headers['Content-Type'] = "application/json";
             if ($localStorage.token) {
               config.headers.Authorization = 'Bearer ' + $localStorage.token;
-              config.headers.token = $localStorage.token;
+              // config.headers.token = $localStorage.token;
             }
             return config;
           },
@@ -128,6 +129,10 @@ angular
   })
   .controller('NavCtrl', ['$rootScope', '$scope', '$location', '$localStorage', 'Main',
     function ($rootScope, $scope, $location, $localStorage, Main) {
+      $scope.$on('event:auth-loginConfirmed',  function () {
+        $scope.isAuthenticated = Main.isAuthenticated()
+      });
+
       $scope.isAuthenticated = Main.isAuthenticated();
 
       var viewLocation = {};
@@ -147,7 +152,7 @@ angular
             alert(res.data)
           } else {
             $localStorage.token = res.data.token;
-            window.location.reload();
+            window.location = "/"
             // window.location = "/";
           }
         }, function () {
@@ -155,23 +160,23 @@ angular
         })
       };
 
-      $scope.signup = function () {
-        var formData = {
-          email: $scope.email,
-          password: $scope.password
-        }
-
-        Main.save(formData, function (res) {
-          if (res.type == false) {
-            alert(res.data)
-          } else {
-            $localStorage.token = res.data.token;
-            window.location = "/"
-          }
-        }, function () {
-          $rootScope.error = 'Failed to signup';
-        })
-      };
+      // $scope.signup = function () {
+      //   var formData = {
+      //     email: $scope.email,
+      //     password: $scope.password
+      //   }
+      //
+      //   Main.save(formData, function (res) {
+      //     if (res.type == false) {
+      //       alert(res.data)
+      //     } else {
+      //       $localStorage.token = res.data.token;
+      //       window.location = "/"
+      //     }
+      //   }, function () {
+      //     $rootScope.error = 'Failed to signup';
+      //   })
+      // };
 
       $scope.me = function () {
         Main.me(function (res) {

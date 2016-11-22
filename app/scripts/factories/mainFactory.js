@@ -39,9 +39,9 @@ angular.module('clientApp')
     var currentUser = {};
 
     return {
-      save: function(data, success, error) {
-        $http.post(baseUrl + '/signin', data).success(success).error(error)
-      },
+      // save: function(data, success, error) {
+      //   $http.post(baseUrl + '/signin', data).success(success).error(error)
+      // },
       signin: function(data, success, error) {
         $http.post(baseUrl + '/authenticate', data).success(success).error(error)
       },
@@ -49,15 +49,12 @@ angular.module('clientApp')
         $http.get(baseUrl + '/api/me').success(success).error(error)
       },
       create: function(data, success, error) {
-       $http.post(baseUrl + '/api/users', data).success(success).error(error)
+       $http.post(baseUrl + '/signup', data).success(success).error(error)
       },
       logout: function(success) {
         changeUser({});
         delete $localStorage.token;
         success();
-      },
-      autheticateUser: function() {
-        $localStorage.token = 'true';
       },
       isAuthenticated: function(){
         if($localStorage.token){
