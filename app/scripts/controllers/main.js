@@ -15,6 +15,9 @@ angular.module('clientApp')
       console.log(searchParam);
       $localStorage.token = searchParam.sid;
       $location.search({});
+      $location.path('/');
+      $rootScope.$broadcast('event:auth-loginConfirmed', Main.isAuthenticated())
+
       // window.location.reload();
     }
 
