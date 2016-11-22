@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($location, $localStorage, $scope,  $http, $rootScope) {
+  .controller('MainCtrl', function ($location, $localStorage, $scope,  $http, $rootScope, Main) {
 
     var searchParam = $location.search();
     if(JSON.stringify(searchParam) !== JSON.stringify({})){
