@@ -1,9 +1,23 @@
+
 <h4>Megha</h4>
 <p>
-  Well it is a boy... I have a hunch!!
+  Well it is a boy... I have a hunch!!sdfsd
 </p>
 
 <h4>Utkarsh</h4>
 <p>
-  Well it is a girl... because I am attracted to pink color and having cravings!!!
+  Well it is a girl... because I am attracted to bright color and having cravings!!!
 </p>
+
+<div>
+  <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+    <div uib-slide ng-repeat="slide in slides" active="active" index="$index"
+         >
+      <img ng-src="{{slide.image}}" style="margin:auto;height: 500px">
+      <div class="carousel-caption">
+        <!--<h4>Slide {{slide.id}}</h4>-->
+        <!--<h4>{{slide.text}}</h4>-->
+      </div>
+    </div>
+  </div>
+</div>

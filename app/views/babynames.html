@@ -1,4 +1,7 @@
 <div id="babyName" style="height: 500px;">
+  <div>
+  <h3> Click on the like <span class="glyphicon glyphicon-thumbs-up"/> button to up vote a baby name </h3>
+  </div>
   <section class="data">
     <div class="left-half">
       <article>
@@ -10,7 +13,7 @@
 
         <div style="padding: 10px;" ng-repeat="vote in girlNames | orderBy: '-upvotes'">
           <div class="content-tile">
-            <div style="float: left">
+            <div style="float: left; cursor: pointer;">
               <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>
               {{vote.upvotes}}
             </div>
@@ -34,7 +37,7 @@
 
         <div style="padding: 10px;" ng-repeat="vote in boyNames | orderBy: '-upvotes'">
           <div class="content-tile">
-            <div style="float: left">
+            <div style="float: left; cursor: pointer;">
               <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(vote)"></span>
               {{vote.upvotes}}
             </div>
