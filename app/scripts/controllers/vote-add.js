@@ -92,7 +92,10 @@ angular.module('clientApp')
     var currIndex = 0;
 
     $scope.setMonth = function (index) {
-      console.log('index === ' + index);
+      if(index==0){
+        alert('Cannot select a past month');
+      }
+
       if (index) {
         $scope.active = index;
         $scope.myInterval = 0;

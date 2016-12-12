@@ -200,7 +200,7 @@ angular
   .run(function ($rootScope, $location, Main) {
 
     // enumerate routes that don't need authentication
-    var routesThatDontRequireAuth = ['/signin', '/signup', '/about', '/'];
+    var routesThatDontRequireAuth = ['/signin', '/signup', '/'];
 
     // check if current location matches route
     var routeClean = function (route) {

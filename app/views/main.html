@@ -1,3 +1,5 @@
+<div ng-hide="loginAlertMessage" ng-class="'alert-success'" class="welcome" >Welcome {{currentUser}}!!!</div>
+
 <div class="jumbotron">
   <div>
   <p><a class="btn btn-lg btn-success" ng-href="#/create/vote">Let's Vote!!!<span class="glyphicon glyphicon-ok"></span></a></p>
@@ -15,7 +17,13 @@
     </p>
 
   <p>
-    As we are divided on what the gender of the baby is going to be, we decided to have an open forum for everyone to vote. Please use the link below to vote and let us know what you think we are having.
+    As we are divided on what the gender of the baby is going to be, we decided to have an open forum for everyone to vote.
+    Please use the link below to vote and let us know what you think we are having,
+    suggest some boy/girl baby names and leave some comments.
+  </p>
+
+  <p class="lead">
+    The person who is closest in the votes will receive a <span class="glyphicon glyphicon-gift"/> gift from us :)
   </p>
   <p><a class="btn btn-lg btn-success" ng-href="#/create/vote">Let's Vote!!!<span class="glyphicon glyphicon-ok"></span></a></p>
 

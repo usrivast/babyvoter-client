@@ -22,7 +22,7 @@
           vm.loading = false;
           $localStorage.token = res.data.token;
           $location.path('/');
-          $rootScope.$broadcast('event:auth-loginConfirmed', Main.isAuthenticated())
+          $rootScope.$broadcast('event:auth-loginConfirmed', Main.isAuthenticated());
         }
       }, function (error) {
         vm.loading = false;
