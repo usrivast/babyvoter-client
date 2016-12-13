@@ -8,7 +8,8 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('VoteAddCtrl', function ($rootScope, $scope, VoteFactory, UserFactory, $location, Main, $timeout, $uibModal, $log, $document) {
+  .controller('VoteAddCtrl', function ($rootScope, $scope, VoteFactory, UserFactory,
+                                       $location, Main, $timeout, $uibModal, $log, $document) {
     var vm = this;
     var currentUser = {};
     var vote = $scope.vote = {};

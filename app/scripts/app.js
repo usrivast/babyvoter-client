@@ -25,7 +25,7 @@ angular
     "api": "https://arcane-peak-48225.herokuapp.com"
   })
   .config(['$routeProvider', 'RestangularProvider', '$httpProvider', 'AppConstants',
-    function ($routeProvider, RestangularProvider, $httpProvider, AppConstants) {
+      function ($routeProvider, RestangularProvider, $httpProvider, AppConstants) {
 
       RestangularProvider.setBaseUrl(AppConstants.api+'/api/');
 
@@ -49,8 +49,14 @@ angular
         .when('/votes', {
           templateUrl: 'views/votes.html',
           controller: 'VotesCtrl',
+          resolve: {
+            votes: function (VoteFactory) {
+              return VoteFactory.getList().$object;
+            }
+
+          }
         })
-        .when('/create/vote', {
+        .when('/vote', {
           templateUrl: 'views/vote-add.html',
           controller: 'VoteAddCtrl'
         })
@@ -87,6 +93,12 @@ angular
         .when('/users', {
           templateUrl: 'views/users.html',
           controller: 'UsersCtrl',
+          resolve: {
+            users: function (UserFactory) {
+              return UserFactory.getList().$object;
+            }
+
+          }
         })
         .when('/user/:id', {
           templateUrl: 'views/user-view.html',

@@ -22,9 +22,7 @@ angular.module('clientApp')
             boyNames.push(each);
           }
         });
-
       })
-
     }
 
 

@@ -8,9 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('UsersCtrl', ['$scope', 'UserFactory', 'Main', function ($scope, UserFactory, Main) {
+  .controller('UsersCtrl', ['$scope', 'UserFactory', 'Main', 'users', function ($scope, UserFactory, Main, users) {
     $scope.isAuthenticated = Main.isAuthenticated();
 
-    var users = UserFactory.getList().$object;
-    $scope.users = users;
+    if($scope.isAuthenticated) {
+      $scope.users = users;
+    }
   }]);

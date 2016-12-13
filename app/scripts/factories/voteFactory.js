@@ -18,3 +18,11 @@ angular.module('clientApp')
   .factory('VoteFactory', function (VoteRestangular) {
     return VoteRestangular.service('vote');
   })
+  .factory('VoteService', function($http, AppConstants){
+    return {
+      voteByUser : function(data, success, error) {
+        $http.post(AppConstants.api + '/api/voteByUser', data).success(success).error(error)
+      }
+
+  }
+  })
