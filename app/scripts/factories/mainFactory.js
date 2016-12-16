@@ -33,6 +33,21 @@ angular.module('clientApp')
       }
       return user;
     }
+
+    function me() {
+      $http.get(baseUrl + '/api/me').then(function(response){
+        return response;
+      })
+    }
+
+    // function getUser(){
+    //   me(function(data){
+    //     return data;
+    //   },function(){
+    //     console.log('error getting data');
+    //     return 'error';
+    //   });
+    // }
     //
     // var currentUser = getUserFromToken();
 
@@ -63,7 +78,7 @@ angular.module('clientApp')
           return false;
         }
       },
-      getUser: getUserFromToken
+      getUser: me
     };
   }
   ]);

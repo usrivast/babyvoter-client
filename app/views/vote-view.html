@@ -1,15 +1,18 @@
-<div style="background-color: #e8e8e8;height: 100px;vertical-align: middle;padding: 10px 10px 10px 20px;">
+<div ng-show="success" ng-class="'alert-success'" class="welcome" >
+  Thank You for voting. Keep checking the website for updates and baby announcements </div>
+
+<div style="background-color: #e8e8e8;height: 100px;vertical-align: middle;padding: 10px 10px 10px 20px; border-radius: 6px;">
   <h3><img ng-src="{{vote.user.facebook.picture.data.url}}" class="img-circle" > {{ vote.user.displayName }}</h3>
 </div>
 <div style="padding: 10px;padding-left: 25px">
-  <span> <label> Gender</label> {{ vote.gender}}</span>
-  <p> Day: {{ vote.day}}</p>
-  <p> Month: {{ vote.month}}</p>
-  <p> Suggestion for Name:
+  <span style="text-align: center"> <label> It's a </label> <img style="height: 50px;" ng-src="{{vote.gender=='boy'&&'/images/baby-boy.png'||'/images/baby-girl.png'}}"/></span>
+  <p> <label> Day: </label> {{ vote.day}}</p>
+  <p> <label> Month: </label>{{ vote.month}}</p>
+  <p>  <label> Suggestion for Name: </label>
   <ul ng-repeat="name in vote.babyName">
     <li>{{name.name}} - {{name.gender}}</li>
   </ul>
   </p>
-  <p> Comment: {{vote.comment}}</p>
-  <p> Voting Date: {{ vote.created | date : 'medium'}}</p>
+  <p> <label> Comment:</label> {{vote.comment}}</p>
+  <p> <label>Voting Date:</label> {{ vote.created | date : 'medium'}}</p>
 </div>

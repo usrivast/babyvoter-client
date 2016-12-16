@@ -9,12 +9,13 @@
  */
 angular.module('clientApp')
   .controller('VoteAddCtrl', function ($rootScope, $scope, VoteFactory, UserFactory,
-                                       $location, Main, $timeout, $uibModal, $log, $document) {
+                                       $location, Main, $timeout, $uibModal, $log, user) {
     var vm = this;
-    var currentUser = {};
     var vote = $scope.vote = {};
     vote.day = 15;
     vote.babyName = [];
+    var error = $scope.error ={};
+    $scope.currentUser = user;
 
     $scope.$on('event:auth-loginConfirmed', Main.isAuthenticated());
 
@@ -26,18 +27,54 @@ angular.module('clientApp')
 
     var names = $scope.names = [];
 
-    $scope.saveVote = function () {
+    function validateVotes () {
+      if(vote.day<1){
+        error.msg = "Please select the day";
+        error.status = true;
+        return error;
+      }
+      if(!vote.month){
+        error.msg = "Please select the month";
+        error.status = true;
+        return error;
+      }
+      if(!vote.gender){
+        error.msg = "Please select the gender";
+        error.status = true;
+        return error;
+      }
+      error.status = false;
+      return error;
+    }
+
+    $scope.$on('$routeChangeStart', function(next, current) {
+      if((current.$$route.templateUrl !== 'views/vote-add.html')&&(current.$$route.templateUrl !== 'views/vote-view.html')){
+        alert('Your vote has not been saved!!');
+      }
+
+    });
+
+    vm.openVote = openVote;
+    function openVote () {
       Main.me(function (res) {
         $scope.currentUser = res.data.firstName + ' ' + res.data.lastName;
         vote.user = res.data._id;
         // $scope.vote.user = res.data.displayName;
         vote.day = $scope.slider_toggle.value;
-        VoteFactory.post($scope.vote).then(function () {
-          $location.path('/votes');
-        });
-      }, function (error) {
-        console.log('Error: ' + error)
+        error = validateVotes();
+        if(!error.status) {
+          openConfirmModal();
+          // VoteFactory.post($scope.vote).then(function () {
+          //   $location.path('/votes');
+          // });
+        }
+      }, function (err) {
+
+        console.log('Error: ' + err);
+        error.status = true;
+        error.msg = 'An error occured while saving. Please try later. ' + err;
       });
+
       // if(names.length > 0) {
       //   names.forEach(function(each) {
       //     vote.babyName.push(each.text);
@@ -50,7 +87,9 @@ angular.module('clientApp')
 
     };
 
-    $scope.cancel = function () {
+    vm.cancel = cancel;
+
+    function cancel () {
       $location.path('/votes');
     }
 
@@ -150,7 +189,7 @@ angular.module('clientApp')
       $scope.$broadcast('rzSliderForceRender');
     });
 
-    $scope.open = function () {
+    vm.openNameModal = function () {
 
       var modalInstance = $uibModal.open({
         templateUrl: '/views/vote-babyname.html',
@@ -179,6 +218,72 @@ angular.module('clientApp')
       };
     };
 
+    function openConfirmModal () {
+      var confirmModalInstance = $uibModal.open({
+        animation: vm.animationsEnabled,
+        templateUrl: '/views/vote-view-modal.html',
+        controller: ConfirmModalInstanceCtrl,
+        controllerAs: ConfirmModalInstanceCtrl,
+        resolve: {
+          vote: function () {
+            return vote;
+          }
+        }
+      });
+
+      confirmModalInstance.result.then(function (result) {
+        if(result.status){
+          console.log("error", result.msg);
+          $scope.error = result;
+        } else {
+          $rootScope.$broadcast('event:vote-submit');
+        }
+      }, function () {
+        $log.info('modal-component dismissed at: ' + new Date());
+      });
+    };
+
+    var ConfirmModalInstanceCtrl = function ($scope, $uibModalInstance, Main, vote) {
+      vm = this;
+      $scope.vote= vote;
+
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+      }
+
+      $scope.saveVote = function () {
+            VoteFactory.post($scope.vote).then(function (res) {
+              if(res.result) {
+                console.log("saved", res.status);
+                $uibModalInstance.close(res);
+                $location.path('/vote/'+res.data._id+'/success');
+              }else{
+                console.log("error", res.data);
+                var error = {};
+                error.msg = res.data;
+                error.status = true;
+                $uibModalInstance.close(error);
+
+              }
+            }),function(response) {
+              $uibModalInstance.close();
+              console.log("Error with status code", response.status);
+              $scope.error.msg = response.statusText;
+            }
+        // if(names.length > 0) {
+        //   names.forEach(function(each) {
+        //     vote.babyName.push(each.text);
+        //   });
+        // }
+
+        // var user = Main.me(function(res) {
+        //   vote.user = res.data._id;
+
+
+      };
+
+
+    };
 
   });
 

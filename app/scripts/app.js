@@ -21,8 +21,8 @@ angular
     'ngTagsInput'
   ])
   .constant("AppConstants", {
-    // "api": "http://localhost:3000"
-    "api": "https://arcane-peak-48225.herokuapp.com"
+    "api": "http://localhost:3000"
+    // "api": "https://arcane-peak-48225.herokuapp.com"
   })
   .config(['$routeProvider', 'RestangularProvider', '$httpProvider', 'AppConstants',
       function ($routeProvider, RestangularProvider, $httpProvider, AppConstants) {
@@ -58,7 +58,13 @@ angular
         })
         .when('/vote', {
           templateUrl: 'views/vote-add.html',
-          controller: 'VoteAddCtrl'
+          controller: 'VoteAddCtrl',
+          controllerAs: 'VoteAddCtrl',
+          resolve: {
+            user: function (Main) {
+              return Main.getUser();
+            }
+          }
         })
         .when('/vote/:id', {
           templateUrl: 'views/vote-view.html',
@@ -71,6 +77,10 @@ angular
         .when('/vote/:id/edit', {
           templateUrl: 'views/vote-edit.html',
           controller: 'VoteEditCtrl',
+        })
+        .when('/vote/:id/:result', {
+          templateUrl: 'views/vote-view.html',
+          controller: 'VoteViewCtrl',
         })
         .when('/home', {
           templateUrl: 'views/home.html',
